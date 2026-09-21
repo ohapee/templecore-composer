@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>電脳和風ブレイクコア＆ハイパーポップ・コンポーザー (Templecore Composer)</title>
+  <meta name="description" content="木魚・梵鐘・お経 × 172BPM高速ブレイクコア × 歪み808 × アニメ声・デスボイス極端デュアルボーカル × 爆発的EDMドロップ。Suno/Udio向け電脳寺院プロンプトジェネレーター。">
+  <meta name="theme-color" content="#ff0055">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./assets/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="./assets/icon-192.png">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ヘッダー -->
+  <header>
+    <div class="brand-wrapper">
+      <div class="brand-icon">⛩️</div>
+      <div class="brand">
+        <h1>電脳和風ブレイクコア＆ハイパーポップ・コンポーザー</h1>
+        <p class="tagline">木魚・梵鐘・お経 × 172BPM粉砕ビーツ × 歪み808 × アニメ声×悪魔デスボイス × 完全静寂ドロップ</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button type="button" class="install-pwa-btn" id="installPwaBtn" style="display: none;">📲 アプリをインストール</button>
+      <button type="button" class="guide-btn" id="installGuideBtn">📱 スマホへの追加方法</button>
+    </div>
+  </header>
+
+  <!-- メイン2カラム配置 -->
+  <main class="main-layout">
+
+    <!-- 左カラム：設定パネル群 -->
+    <div class="column-left">
+
+      <!-- 1. 曲名＆基本スタイル -->
+      <section class="panel">
+        <h2>1. 曲名＆基本スタイル <span class="badge">STYLE</span></h2>
+
+        <div class="field">
+          <label class="small" for="trackTitleInput">曲のタイトル</label>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="trackTitleInput" value="南無阿弥陀808 (Namu Amida 808)" placeholder="曲名を入力...">
+            <button type="button" class="ghost" id="randomTitleBtn" style="white-space: nowrap;">🎲 ガチャ</button>
+          </div>
+        </div>
+
+        <div class="field" style="margin-bottom: 0;">
+          <label class="small">サブジャンル・基軸スタイル</label>
+          <div id="genreChips" class="chip-row"></div>
+        </div>
+      </section>
+
+      <!-- 2. デュアルボーカル＆声質加工 -->
+      <section class="panel">
+        <h2>2. デュアルボーカル＆声質加工 <span class="badge">VOCALS</span></h2>
+        <div class="field" style="margin-bottom: 0;">
+          <label class="small">ボーカル構成・加工スタイル</label>
+          <div id="vocalChips" class="chip-row"></div>
+        </div>
+      </section>
+
+      <!-- 3. 和モノ・寺院エスニックサンプリング -->
+      <section class="panel">
+        <h2>3. 和モノ・寺院サンプリング音響 <span class="badge">TEMPLE</span></h2>
+        <div class="field" style="margin-bottom: 0;">
+          <label class="small">伝統寺院・和楽器要素（複数選択可）</label>
+          <div id="japanChips" class="chip-row"></div>
+        </div>
+      </section>
+
+      <!-- 4. 電脳音響＆ドロップ構造 -->
+      <section class="panel">
+        <h2>4. 電脳音響＆ドロップ構造 <span class="badge">DROP & BASS</span></h2>
+        <div class="field" style="margin-bottom: 0;">
+          <label class="small">破壊的音響・ドロップ演出（複数選択可）</label>
+          <div id="prodChips" class="chip-row"></div>
+        </div>
+      </section>
+
+      <!-- 5. テンポ・尺・リアルタイム試聴 -->
+      <section class="panel">
+        <h2>5. テンポ・尺・リアルタイム試聴 <span class="badge">SPEED & PREVIEW</span></h2>
+
+        <div class="field">
+          <label class="small">テンポ選択 (BPM)</label>
+          <div id="tempoChips" class="chip-row"></div>
+        </div>
+
+        <div class="field">
+          <label class="small">テンポ微調整</label>
+          <div class="tempo-row">
+            <input type="range" id="tempoRange" min="150" max="185" value="172">
+            <div class="tempo-readout" id="tempoReadout">172<span> BPM</span></div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="small">曲の長さ（尺）</label>
+          <div id="durationChips" class="chip-row"></div>
+        </div>
+
+        <!-- Web Audio シンセ試聴プレイヤー -->
+        <div class="preview-player">
+          <div class="preview-controls">
+            <button type="button" class="play-btn" id="previewToggleBtn">▶ PLAY (172BPM ブレイクビーツ＆木魚試聴)</button>
+            <div class="volume-row">
+              <span>VOLUME</span>
+              <input type="range" id="previewVolume" min="0" max="1" step="0.05" value="0.7">
+            </div>
+          </div>
+
+          <!-- 16ステップ LEDインジケーター -->
+          <div class="step-tracker" id="stepTracker">
+            <div class="step-bulb"></div>
+            <div class="step-bulb"></div>
+            <div class="step-bulb"></div>
+            <div class="step-bulb"></div>
+            <div class="step-bulb"></div>
+            <div class="step-bulb"></div>
+            <div class="step-bulb"></div>
+            <div class="step-bulb"></div>
+            <div class="step-bulb"></div>
+            <div class="step-bulb"></div>
+            <div class="step-bulb"></div>
+            <div class="step-bulb"></div>
+            <div class="step-bulb"></div>
+            <div class="step-bulb"></div>
+            <div class="step-bulb"></div>
+            <div class="step-bulb"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. 禁止事項・完全除外指定 -->
+      <section class="panel">
+        <h2>6. 禁止事項（生ぬるい要素を完全除外） <span class="badge">NEGATIVE</span></h2>
+        <div class="field" style="margin-bottom: 0;">
+          <label class="small">完全にシャットアウトしたい退屈な要素（複数選択可）</label>
+          <div id="negativeChips" class="chip-row"></div>
+        </div>
+      </section>
+
+      <!-- 7. プリセット・共有 -->
+      <section class="panel">
+        <h2>7. プリセット・共有 <span class="badge">PRESETS</span></h2>
+
+        <div class="field">
+          <label class="small" for="presetNameInput">設定の保存</label>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="presetNameInput" placeholder="プリセット名 (空欄なら曲名で保存)">
+            <button type="button" class="primary" id="savePresetBtn" style="white-space: nowrap; padding: 0 16px;">💾 保存</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="small">保存済みプリセット一覧</label>
+          <div id="presetChips" class="chip-row"></div>
+        </div>
+
+        <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;">
+          <button type="button" class="ghost" id="exportPresetBtn">JSON書き出し</button>
+          <button type="button" class="ghost" id="importPresetBtn">JSON読み込み</button>
+          <button type="button" class="ghost" id="shareUrlBtn">共有URLをコピー 🔗</button>
+          <input type="file" id="importPresetFile" accept=".json" style="display: none;">
+        </div>
+      </section>
+
+      <!-- アクションボタン群 -->
+      <div class="actions">
+        <button type="button" class="primary" id="genBtn">⚡ スクリプトを生成</button>
+        <button type="button" class="ghost" id="randomBtn">🎲 おまかせ電脳破壊</button>
+        <button type="button" class="ghost" id="resetBtn">リセット</button>
+      </div>
+
+    </div>
+
+    <!-- 右カラム：出力パネル群 -->
+    <div class="column-right">
+
+      <!-- AIプロンプト出力 -->
+      <section class="panel">
+        <h2>AI音楽プロンプト出力 <span class="badge">OUTPUT</span></h2>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+          <div class="lang-toggle" id="langToggle">
+            <button type="button" class="on" data-lang="ja">日本語</button>
+            <button type="button" data-lang="en">English (推奨)</button>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <select id="aiTargetSelect" style="width: auto; padding: 5px 10px; font-size: 0.8rem;">
+              <option value="suno_udio" selected>Suno / Udio (スタイルタグ＆構成)</option>
+              <option value="flow">Google Flow Music (詳細指示)</option>
+              <option value="plain">シンプル文章形式</option>
+            </select>
+          </div>
+        </div>
+
+        <textarea id="promptOut" readonly spellcheck="false" placeholder="プロンプトがここに生成されます..."></textarea>
+
+        <div class="copy-row">
+          <span style="font-size: 0.78rem; color: var(--text-sub);">AI音楽生成ツールにそのまま貼り付けて利用できます</span>
+          <button type="button" id="copyBtn">📋 プロンプトをコピー</button>
+        </div>
+
+        <!-- SNS動画制作者向け支援パネル -->
+        <div class="social-box">
+          <h3>⚡ YouTube / TikTok / Shorts動画用メタデータ</h3>
+          
+          <div class="social-row">
+            <label for="socialVideoTitle">動画タイトル (SEO＆クリック率最適化):</label>
+            <input type="text" id="socialVideoTitle" readonly>
+          </div>
+
+          <div class="social-row">
+            <label for="socialDescription">概要欄説明文 (ハッシュタグ付き):</label>
+            <textarea id="socialDescription" style="min-height: 90px;" readonly></textarea>
+          </div>
+
+          <div class="copy-row" style="margin-top: 8px;">
+            <span style="font-size: 0.74rem; color: var(--text-sub);">動画投稿時にそのままタイトル・概要欄にコピーできます</span>
+            <button type="button" id="copySocialBtn">📋 タイトル＆説明文をコピー</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 激しい音・妨害要素の除外指示（Negative Prompt） -->
+      <section class="panel" id="negativeSection" style="display: none;">
+        <h2>生ぬるい要素の完全除外指示 <span class="badge">NEGATIVE</span></h2>
+        <textarea id="negativeOut" readonly spellcheck="false" style="min-height: 80px;" placeholder="除外指示がここに生成されます..."></textarea>
+        <div class="copy-row">
+          <span style="font-size: 0.78rem; color: var(--text-sub);">AI音楽ツールの「Negative Prompt / Exclude Styles」欄に貼り付けます</span>
+          <button type="button" id="copyNegBtn">🚫 除外指示をコピー</button>
+        </div>
+      </section>
+
+      <!-- タイムライン展開画面 -->
+      <section class="panel">
+        <h2>トラック展開タイムライン <span class="badge">TIMELINE</span></h2>
+        <div id="timeline" class="screen"></div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- フッター -->
+  <footer>
+    <p>⛩️ <strong>電脳和風ブレイクコア＆ハイパーポップ・コンポーザー</strong> ── 木魚・梵鐘・お経 × 172BPM粉砕ビーツ × 歪み808 × アニメ声×悪魔グロウル</p>
+    <p>Suno / Udio / Google Flow 対応プロンプトジェネレーター<br>
+    Web Audio API による172BPMブレイクコア＆木魚リアルタイムプレビュー搭載 / PWA対応</p>
+  </footer>
+
+</div>
+
+<!-- スマホ追加・インストール手順モーダル -->
+<div class="modal-overlay" id="installModal">
+  <div class="modal-box">
+    <button type="button" class="modal-close" id="modalCloseBtn">&times;</button>
+    <h2 class="modal-title">📱 スマホへの追加（PWAインストール方法）</h2>
+
+    <div class="guide-step">
+      <h3>🍎 iPhone (Safari) の場合</h3>
+      <ol>
+        <li>画面下部の中央にある<strong>共有アイコン</strong>（四角形から上向き矢印が出ているマーク）をタップします。</li>
+        <li>メニューが開いたら、少し下にスクロールして<strong>「ホーム画面に追加」</strong>をタップします。</li>
+        <li>右上の<strong>「追加」</strong>をタップすると、ホーム画面に専用アイコンが追加され、全画面アプリとして起動できます。</li>
+      </ol>
+    </div>
+
+    <div class="guide-step">
+      <h3>🤖 Android (Chrome) の場合</h3>
+      <ol>
+        <li>ヘッダーに表示される<strong>「📲 アプリをインストール」</strong>ボタンをタップします。</li>
+        <li>または右上の<strong>メニュー（縦の3点リーダー）</strong>をタップし、<strong>「アプリをインストール」</strong>または<strong>「ホーム画面に追加」</strong>を選択します。</li>
+      </ol>
+    </div>
+
+    <div style="text-align: center; margin-top: 16px;">
+      <button type="button" class="primary" id="modalOkBtn" style="padding: 9px 24px;">了解しました</button>
+    </div>
+  </div>
+</div>
+
+<!-- トースト通知 -->
+<div id="flash" class="flash"></div>
+
+<!-- Service Worker 登録スクリプト -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then(reg => console.log('ServiceWorker registered:', reg.scope))
+        .catch(err => console.log('ServiceWorker registration failed:', err));
+    });
+  }
+</script>
+
+<!-- メインスクリプト -->
+<script type="module" src="js/app.js"></script>
+
+</body>
+</html>

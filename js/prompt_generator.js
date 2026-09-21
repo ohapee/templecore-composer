@@ -1,0 +1,225 @@
+/**
+ * 電脳和風ブレイクコア＆ハイパーポップ・コンポーザー (Templecore Composer)
+ * プロンプト生成エンジンモジュール
+ */
+
+import {
+  GENRES,
+  VOCAL_STYLES,
+  JAPANESQUE_ELEMENTS,
+  PRODUCTION_ELEMENTS,
+  NEGATIVE_OPTIONS,
+  DURATIONS
+} from './data.js';
+
+export function buildPrompt(state) {
+  const isEn = state.lang === 'en';
+  const genreObj = GENRES.find(g => g.id === state.genre) || GENRES[0];
+  const vocalObj = VOCAL_STYLES.find(v => v.id === state.vocalStyle) || VOCAL_STYLES[0];
+  const selectedJapan = JAPANESQUE_ELEMENTS.filter(j => state.japanesque.has(j.id));
+  const selectedProd = PRODUCTION_ELEMENTS.filter(p => state.production.has(p.id));
+
+  if (state.aiTarget === 'suno_udio') {
+    return buildSunoUdioPrompt(state, genreObj, vocalObj, selectedJapan, selectedProd, isEn);
+  }
+
+  if (state.aiTarget === 'flow') {
+    return buildFlowPrompt(state, genreObj, vocalObj, selectedJapan, selectedProd, isEn);
+  }
+
+  return buildPlainPrompt(state, genreObj, vocalObj, selectedJapan, selectedProd, isEn);
+}
+
+function buildSunoUdioPrompt(state, genre, vocal, japan, prod, isEn) {
+  const tags = [];
+
+  // 基本ジャンルタグ
+  tags.push('Japanese Breakcore');
+  tags.push('Hyperpop');
+  tags.push('Digicore');
+  tags.push('Templecore');
+  tags.push(`${state.tempo} BPM`);
+
+  // ボーカルタグ
+  tags.push('dual vocals');
+  tags.push('high-pitched anime-style female vocals');
+  tags.push('distorted demonic low-growl male vocals');
+  tags.push('Buddhist chant repetition');
+  tags.push('glitch processing');
+
+  // 和モノ＆寺院タグ
+  japan.forEach(j => {
+    if (j.id === 'mokugyo') tags.push('frantic mokugyo woodblock rolls');
+    else if (j.id === 'bonsho') tags.push('deep bonsho temple bell');
+    else if (j.id === 'shakuhachi') tags.push('screeching shakuhachi overblow');
+    else if (j.id === 'koto') tags.push('glitch koto arpeggios');
+    else if (j.id === 'buddhist_chant') tags.push('monk shomyo chant samples');
+    else if (j.id === 'odaiko') tags.push('heavy O-Daiko taiko slams');
+    else if (j.id === 'kagura_suzu') tags.push('shimmering kagura suzu bells');
+    else if (j.id === 'hyoshigi') tags.push('snappy hyoshigi clappers');
+  });
+
+  // 音響＆ドロップタグ
+  prod.forEach(p => {
+    if (p.id === 'sudden_silence') tags.push('sudden absolute silence before drop');
+    else if (p.id === 'distorted_808') tags.push('distorted blown-out 808 sub-bass glides');
+    else if (p.id === 'laser_synth') tags.push('piercing laser synth leads');
+    else if (p.id === 'pitch_riser') tags.push('manic pitch-bending buildups');
+    else if (p.id === 'amen_chops') tags.push('chopped amen breakcore drive');
+    else if (p.id === 'bitcrush_burst') tags.push('bitcrush glitch bursts');
+    else if (p.id === 'gabber_kick') tags.push('distorted gabber kicks');
+  });
+
+  tags.push('explosive aggressive EDM drop');
+  tags.push('chaotic dopamine-rush mix');
+
+  // 構成ブロック
+  let structure = `
+[Intro - Whispering Temple Shadows & Bonsho Bell]
+(Low-drone Buddhist monk chant and delicate mokugyo ticks echoing in darkness)
+(Intimate whispered vocals in ear: "覚悟はいい...？")
+
+[Build-up - 172 BPM Chopped Amen Breaks & Rising Pitch]
+(Manic breakcore amen chops accelerating violently)
+(Extreme pitch-bending riser ascending with breathless anime vocal repetitions)
+
+[Pre-Drop - SUDDEN ABSOLUTE SILENCE]
+[DEAD SILENCE // 0.5s Complete Stop - No Sound]
+
+[Aggressive Drop - Blown-out 808, Demonic Low-Growl & Laser Synth]
+(EXPLOSIVE brostep bass detonate with speaker-tearing distorted 808 slides)
+(Demonic low-growl shouting chants colliding with frantically galloping mokugyo woodblocks)
+(Piercing laser synths shooting across chaotic stereo field)
+
+[Hyperpop Melodic Hook - Ultra High-Pitched Anime Female Vocals]
+(Euphoric, sweet-yet-unhinged anime girl melody singing at breakneck speed)
+(Glitch koto arpeggios and high-frequency Kagura Suzu bell cascades)
+
+[Speedcore Outro - Distorted Gabber Kicks & Bitcrushed Monk Fade]
+(Violent distorted 4-on-the-floor gabber kicks, reverse cymbal bursts, fading into lingering bonsho bell)`;
+
+  const titleHeader = state.trackTitle ? `### Track Title: ${state.trackTitle}\n\n` : '';
+
+  return `${titleHeader}=== [Style & Instrumentation Tags] ===
+${tags.join(', ')}
+
+=== [Track Structure & Arrangement] ===
+${structure.trim()}`;
+}
+
+function buildFlowPrompt(state, genre, vocal, japan, prod, isEn) {
+  const titlePart = state.trackTitle ? (isEn ? `Track Title: "${state.trackTitle}"\n` : `曲名: 「${state.trackTitle}」\n`) : '';
+
+  if (isEn) {
+    return `${titlePart}Generate an extreme Japanese Hyperpop and Breakcore track (Templecore) driven at ${state.tempo} BPM.
+- Core Genre: ${genre.en}.
+- Vocal Architecture: ${vocal.en}.
+- Japanesque & Temple Samplings: ${japan.map(j => j.en).join('; ')}.
+- Bass & Production Elements: ${prod.map(p => p.en).join('; ')}.
+- Dynamics & Drop: Built around manic Amen breakcore rhythms and rising pitch buildups, abruptly cutting into a sudden absolute dead silence gap (0.5 seconds of pure zero audio), immediately exploding into an aggressive, blown-out 808 EDM drop with demonic male growls, frantically clattering mokugyo woodblocks, piercing laser synth leads, and a hyper-sweet anime female vocal hook. Chaotic dopamine-rush master.`;
+  }
+
+  return `${titlePart}【音楽ジャンル・世界観】
+和風ブレイクコア × ハイパーポップ／デジコア × 寺院エスニック「${genre.ja}」。
+テンポは激動の${state.tempo} BPM。
+
+【ボーカル設計】
+${vocal.ja}
+${vocal.desc}
+
+【和モノ・寺院サンプリング音響】
+${japan.map(j => `・${j.ja}`).join('\n')}
+
+【電脳音響＆ドロップ・ベース構造】
+${prod.map(p => `・${p.ja}`).join('\n')}
+
+【展開・ダイナミクス指定】
+高速粉砕アーメンブレイクとお経の呪術的リフレイン、無限上昇ピッチライザーで極限まで緊張感を煽った直後、一瞬の「完全な静寂（0.5秒の無音）」へ突入。その直後に歪みきった極悪808スライドベース、低音デスボイスグロウル、木魚の16分超高速連打、脳天を貫くレーザーシンセが炸裂する爆発的EDMドロップを展開。脳内ドーパミンを強制放出させる電脳カオス・ミックス。`;
+}
+
+function buildPlainPrompt(state, genre, vocal, japan, prod, isEn) {
+  const titlePart = state.trackTitle ? `"${state.trackTitle}" - ` : '';
+  if (isEn) {
+    return `${titlePart}Hyper Japanese hyperpop with distorted low-growl male and high-pitched anime-style female dual vocals, glitch processing and chant-like repetition, manic ${state.tempo} BPM breakcore drive, sudden absolute silence into an explosive aggressive EDM drop, pitch-bending buildups, distorted 808s, heavy bass, glitch chops, mokugyo woodblock, frantic temple bells, laser synth leads, Buddhist chant samples, chaotic dopamine-rush mix.`;
+  }
+  return `${titlePart}${state.tempo} BPMの和風ハイパーポップ＆ブレイクコア。超高音アニメ声と歪んだ低音デスボイスの極端デュアルボーカル、お経の呪術的反復、木魚の超高速連打と梵鐘、粉砕アーメンビーツ。一瞬の完全静寂直後に爆発する歪み808極悪EDMドロップとレーザーシンセが炸裂する電脳寺院カオスサウンド。`;
+}
+
+export function buildNegativePrompt(state) {
+  if (!state.negatives || state.negatives.size === 0) {
+    return '';
+  }
+
+  const selected = NEGATIVE_OPTIONS.filter(opt => state.negatives.has(opt.id));
+  if (selected.length === 0) return '';
+
+  if (state.lang === 'ja') {
+    const list = selected.map(s => `・${s.ja}`).join('\n');
+    return `【完全除外指示（Negative Prompt）】\n${list}\n※上記のような生ぬるい・退屈な要素は一切排除し、徹底的に過激で刺激的なブレイクコア／ハイパーポップに仕上げること。`;
+  }
+
+  return selected.map(s => s.en).join(', ');
+}
+
+export function buildTimelineData(state) {
+  const dur = state.duration || '60';
+
+  if (dur === '15') {
+    return [
+      { time: '0:00 - 0:05', label: 'Dark Chant & Pitch Riser', desc: '梵鐘とお経の囁きから急激にピッチが上昇' },
+      { time: '0:05 - 0:06', label: 'Sudden Silence (0.5s)', desc: '【完全静寂】一瞬の音の断絶' },
+      { time: '0:06 - 0:15', label: 'Explosive 808 Drop', desc: '歪み808＋木魚連打＋デスボイス＋レーザー炸裂' }
+    ];
+  }
+
+  if (dur === '30') {
+    return [
+      { time: '0:00 - 0:08', label: 'Temple Intro', desc: '暗黒寺院の声明とお経、木魚の刻み' },
+      { time: '0:08 - 0:15', label: '172BPM Breakcore Buildup', desc: '粉砕アーメンビーツとアニメ声の早口リフレイン' },
+      { time: '0:15 - 0:16', label: 'Absolute Dead Silence', desc: '【息をのむ完全無音】すべての音が消える' },
+      { time: '0:16 - 0:26', label: 'Aggressive EDM Drop', desc: '歪んだ808スライドベースと悪魔グロウル、木魚16分連打' },
+      { time: '0:26 - 0:30', label: 'Glitch Outro', desc: 'ビットクラッシュと神楽鈴の余韻' }
+    ];
+  }
+
+  if (dur === '60') {
+    return [
+      { time: '0:00 - 0:12', label: 'Intro - Bonsho & Shomyo', desc: '大梵鐘の低音倍音とお経ドローン、耳元の不気味な囁き' },
+      { time: '0:12 - 0:24', label: 'Build-up - Manic Amen Chops', desc: '172BPM粉砕ブレイクビーツ加速、無限上昇ピッチライザー' },
+      { time: '0:24 - 0:25', label: 'Pre-Drop - SUDDEN SILENCE', desc: '【0.5秒の完全静寂】落差を極限まで高める漆黒の空白' },
+      { time: '0:25 - 0:42', label: 'Drop - Blown-out 808 & Mokugyo', desc: '極悪歪み808＋低音デスボイスグロウル＋木魚超高速ポリリズム' },
+      { time: '0:42 - 0:54', label: 'Hook - High-Pitched Anime Melodic', desc: '超高音アニメ声サビメロディ＋電脳琴グリッチアルペジオ' },
+      { time: '0:54 - 1:00', label: 'Speedcore Gabber Outro', desc: '歪みガバキック連打と逆再生バースト、梵鐘の余韻' }
+    ];
+  }
+
+  // フル尺・長尺 (90秒〜)
+  return [
+    { time: '0:00 - 0:15', label: 'Prologue - Dark Shrine Shomyo', desc: '暗黒寺院の冷気、声明読経ドローン、大太鼓の地響き' },
+    { time: '0:15 - 0:30', label: 'Section A - Glitch Rap & Mokugyo', desc: 'アニメ声の早口電脳ラップと木魚のポクポク刻み' },
+    { time: '0:30 - 0:45', label: 'Buildup - Shepard Tone Riser', desc: '無限上昇ピッチライザーと175BPM粉砕アーメンブレイク' },
+    { time: '0:45 - 0:46', label: 'The Void - ABSOLUTE SILENCE', desc: '【0.5秒の完全停止】すべての音波が消滅' },
+    { time: '0:46 - 1:05', label: 'Drop 1 - Brostep Bass & Demonic Growl', desc: '重力崩壊808スライド＋悪魔グロウル絶叫＋レーザーシンセ' },
+    { time: '1:05 - 1:20', label: 'Section B - Euphoric Anime Hook', desc: '高音アニメ声と電脳琴アルペジオが疾走する多幸感サビ' },
+    { time: '1:20 - 1:30', label: 'Drop 2 - J-Core Gabber Mantra', desc: '歪みガバキック4つ打ちとお経マントラ連呼の狂気' }
+  ];
+}
+
+export function buildSocialMetadata(state) {
+  const title = state.trackTitle || '南無阿弥陀808 (Namu Amida 808)';
+  return {
+    videoTitle: `${title} ⛩️⚡ [Japanese Breakcore / Templecore]`,
+    desc: `⚡ Hyper Japanese Breakcore & Digicore (172 BPM)
+Fusing frantic Mokugyo woodblock rolls, Bonsho temple bell, monk chants, distorted 808 bass, and anime dual vocals.
+
+🎧 Elements:
+- High-pitched Anime Female & Distorted Low-Growl Male Dual Vocals
+- 172 BPM Manic Breakcore Amen Chops
+- Sudden Absolute Silence into Explosive Aggressive Drop
+- Buddhist Shomyo Chants & Mokugyo Woodblock Polyrhythm
+
+🏷️ Tags:
+#breakcore #hyperpop #digicore #templecore #japanesebreakcore #amenbreak #808bass #animecore`,
+    hashtags: '#breakcore #hyperpop #templecore #japanesebreakcore #digicore'
+  };
+}
