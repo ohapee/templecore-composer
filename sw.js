@@ -2,7 +2,7 @@
  * 電脳和風ブレイクコア＆ハイパーポップ・コンポーザー - Service Worker (PWA対応)
  */
 
-const CACHE_NAME = 'templecore-v1';
+const CACHE_NAME = 'templecore-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

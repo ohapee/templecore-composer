@@ -1,11 +1,11 @@
 {
-  "name": "電脳和風ブレイクコア＆ハイパーポップ・コンポーザー",
-  "short_name": "Templecore",
-  "description": "木魚・梵鐘・お経 × 172BPM粉砕ビーツ × 歪み808 × アニメ声×悪魔デスボイス × 完全静寂ドロップ。電脳寺院プロンプトジェネレーター。",
+  "name": "ドパガキ電脳和風ブレイクコア＆Kawaiiハイパーポップ・コンポーザー",
+  "short_name": "ドパガキ電脳寺院",
+  "description": "脳汁ドバドバ！超あざと可愛いアニメ声×歪み悪魔デスボイス × 木魚172BPM粉砕ビーツ × 歪み808 × 0.5秒完全静寂ドロップ。ドパガキの脳を完全破壊する音楽AIプロンプトジェネレーター。",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#07030a",
-  "theme_color": "#ff0055",
+  "theme_color": "#ff007f",
   "orientation": "any",
   "icons": [
     {

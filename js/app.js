@@ -36,7 +36,7 @@ import {
 } from './storage.js';
 
 const state = {
-  trackTitle: '南無阿弥陀808 (Namu Amida 808)',
+  trackTitle: 'ドパガキ極楽浄土808 (Dopagaki Nirvana 808)',
   genre: 'templecore_breakcore',
   vocalStyle: 'dual_contrast',
   japanesque: new Set(['mokugyo', 'bonsho', 'buddhist_chant', 'koto']),
@@ -391,12 +391,12 @@ function init() {
     applyState(state);
     generate();
     saveLastState(state);
-    flash(`🎲 おまかせ電脳寺院トラック「${state.trackTitle}」を調合しました⛩️⚡`);
+    flash(`🎲 ドパガキ脳汁トラック「${state.trackTitle}」を調合しました🧠⚡⛩️`);
   });
 
   // リセット
   document.getElementById('resetBtn')?.addEventListener('click', () => {
-    state.trackTitle = '南無阿弥陀808 (Namu Amida 808)';
+    state.trackTitle = 'ドパガキ極楽浄土808 (Dopagaki Nirvana 808)';
     state.genre = 'templecore_breakcore';
     state.vocalStyle = 'dual_contrast';
     state.japanesque = new Set(['mokugyo', 'bonsho', 'buddhist_chant', 'koto']);
@@ -526,10 +526,10 @@ function init() {
       },
       (isPlaying) => {
         if (isPlaying) {
-          playBtn.textContent = '■ STOP (狂気停止)';
+          playBtn.textContent = '■ STOP (脳汁停止)';
           playBtn.classList.add('playing');
         } else {
-          playBtn.textContent = '▶ PLAY (172BPM ブレイクビーツ＆木魚試聴)';
+          playBtn.textContent = '▶ PLAY (ドパガキ脳汁試聴・172BPM粉砕ビーツ＆木魚)';
           playBtn.classList.remove('playing');
           stepBulbs.forEach(b => b.classList.remove('active'));
         }

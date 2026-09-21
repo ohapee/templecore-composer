@@ -1,85 +1,86 @@
 /**
- * 電脳和風ブレイクコア＆ハイパーポップ・コンポーザー (Templecore Composer)
+ * ドパガキ電脳和風ブレイクコア＆Kawaiiハイパーポップ・コンポーザー
+ * (Dopagaki Cyber Kawaii Breakcore Composer)
  * 設定データ定義モジュール
  */
 
-// サブジャンル・基軸スタイル
+// サブジャンル・基軸スタイル (ドパガキ＆Kawaiiアニメ声特化)
 export const GENRES = [
   {
     id: 'templecore_breakcore',
-    ja: '電脳寺院ブレイクコア (Templecore Breakcore)',
-    en: 'Japanese Templecore Breakcore fusing chaotic 172 BPM chopped Amen breaks, frenetic mokugyo woodblocks, bonsho temple bell reverberations, and manic glitch chops',
-    tag: 'Templecore, Japanese Breakcore',
-    desc: 'BPM 165〜176。木魚の超高速連打とお経サンプリングが粉砕アーメンビーツと激突する、神聖と狂気のブレイクコア。'
+    ja: 'ドパガキ電脳寺院ブレイクコア (Dopagaki Temple Breakcore)',
+    en: 'Japanese Dopagaki Templecore Breakcore fusing chaotic 172 BPM chopped Amen breaks, frantic mokugyo woodblocks, ultra-cute anime girl chant squeaks, and bonsho temple bells for a dopamine-rush frenzy',
+    tag: 'Templecore, Kawaii Breakcore, Dopagaki',
+    desc: 'BPM 168〜176。超あざと可愛いアニメ声と木魚の超高速連打、粉砕アーメンビーツでお経を連呼し、ドパガキの脳汁を限界突破させる。'
   },
   {
     id: 'kawaii_terror_digicore',
-    ja: '狂乱カワイイ・テラー (Kawaii Terror Digicore)',
-    en: 'hyper-aggressive Kawaii Terror and Digicore driven by manic pitch-bent vocal chops, ear-piercing laser synths, blown-out 808 distortion, and cute anime girl chants',
-    tag: 'Kawaii Terror, Digicore, Hyperpop',
-    desc: 'BPM 160〜175。甘くとろける超高音アニメ声と、耳をつんざくレーザーシンセ＆極悪歪み808が脳内麻薬を分泌させる。'
+    ja: 'あざと可愛いKawaiiテラー (Kawaii Terror Digicore)',
+    en: 'hyper-aggressive Kawaii Terror and Digicore driven by manic pitch-bent anime girl vocals, ear-piercing laser synths, blown-out 808 bass distortion, and addictive dopamine hooks',
+    tag: 'Kawaii Terror, Digicore, Moe Hyperpop',
+    desc: 'BPM 160〜175。とろけるような高音ロリ萌え声と、耳をつんざくレーザーシンセ＆極悪歪み808が脳を直撃する危険な合法ドラッグ。'
   },
   {
     id: 'buddhist_brostep_drop',
-    ja: '仏滅リディム・EDMドロップ (Buddhist Riddim / Dubstep Drop)',
-    en: 'Buddhist dubstep and hybrid trap featuring dramatic rising pitch buildups, a sudden absolute silence gap, followed by an explosive heavy bass drop with metallic screeches',
-    tag: 'Buddhist Dubstep, Aggressive EDM Drop',
-    desc: 'BPM 160〜170。お経とピッチ上昇で極限まで焦らし、0.5秒の「完全な無音（Silence）」直後に叩き落とす破壊的ドロップ。'
+    ja: '仏滅ドパガキ・EDMドロップ (Dopamine Void Dubstep Drop)',
+    en: 'Buddhist dubstep and hybrid trap featuring dramatic rising pitch buildups, a sudden absolute silence gap, followed by an explosive heavy bass drop with demonic male growls and screaming anime vocals',
+    tag: 'Dopamine Dubstep, Aggressive EDM Drop',
+    desc: 'BPM 160〜170。可愛いアニメ声とお経で焦らし、0.5秒の「完全無音（Dead Silence）」直後に極悪808が脳天を叩き割る爆発的ドロップ。'
   },
   {
     id: 'jcore_speed_mantra',
-    ja: 'J-Core スピードガバ曼荼羅 (J-Core Speedcore Mantra)',
-    en: 'ferocious J-Core and Speedcore stomping with heavily distorted 4-on-the-floor gabber kicks, hyper anime female dual shout, and hypnotic Buddhist mantra loops',
-    tag: 'J-Core, Speedcore, Gabber',
-    desc: 'BPM 175〜185。ディストーション・ガバキックが床を揺らし、お経のリフレインと高速アニメ声がトランス状態へ導く。'
+    ja: '電波萌え声×ガバ曼荼羅 (Moe Voice Speedcore Mantra)',
+    en: 'ferocious J-Core and Speedcore stomping with heavily distorted 4-on-the-floor gabber kicks, hyper-manic high-pitched anime female dual shouts, and hypnotic Buddhist mantra loops',
+    tag: 'J-Core, Speedcore, Moe Gabber',
+    desc: 'BPM 175〜185。電波ソング級の超高音アニメ声と歪みガバキックが床を破壊。お経マントラ連呼でドパガキが卒倒する極限スピード。'
   },
   {
     id: 'cyber_kaidan_witch',
-    ja: '電脳怪談ダークウェーブ (Cyber Kaidan Witch House)',
-    en: 'eerie cyber Japanesque Witch House blending haunted shakuhachi screeches, cold ghost whispers, distorted low-growls, and heavy industrial trap basslines',
-    tag: 'Cyber Kaidan, Japanese Witch House',
-    desc: 'BPM 150〜168。暗黒寺院の冷気、尺八の叫び、不気味な囁きから突如として悪魔グロウルと808ベースが襲いかかる。'
+    ja: '病みかわ電脳怪談ダークウェーブ (Yamikawaii Cyber Kaidan)',
+    en: 'eerie cyber Japanesque Witch House blending haunted shakuhachi screeches, yamikawaii anime girl ghost whispers, distorted low-growls, and heavy industrial trap basslines',
+    tag: 'Yamikawaii Kaidan, Cyber Witch House',
+    desc: 'BPM 150〜168。地雷系・病みかわ少女の甘い囁きから、突如として悪魔グロウルと808ベースが襲いかかる情緒不安定サウンド。'
   },
   {
     id: 'hyper_anime_trap',
-    ja: 'ハイパー・アニメ・トラップ (Hyper Anime Trap)',
-    en: 'manic Japanese Hyperpop trap with lightning-fast anime vocal rapping, pitch-shifted formant glitches, heavy 808 glides, and frantic temple bell sprinkles',
-    tag: 'Hyper Anime Trap, Glitchcore',
-    desc: 'BPM 160〜172。ケロケロボカロ早口ラップと琴の高速アルペジオ、跳ねる808スライドが連鎖する現代インターネット直系サウンド。'
+    ja: 'あざと狂乱アニメトラップ (Hyper Kawaii Anime Trap)',
+    en: 'manic Japanese Kawaii Hyperpop trap with lightning-fast anime girl vocal rapping, pitch-shifted formant glitches, heavy 808 glides, and frantic temple bell sprinkles',
+    tag: 'Hyper Anime Trap, Glitchcore, Dopamine',
+    desc: 'BPM 160〜172。早口あざと可愛いアニメ声ラップと琴の高速アルペジオ、跳ねる808スライドが脳を焼き尽くすTikTok/Shorts直系サウンド。'
   }
 ];
 
-// ボーカル構成＆加工スタイル
+// ボーカル構成＆加工スタイル (かわいいアニメ声＆対比特化)
 export const VOCAL_STYLES = [
   {
     id: 'dual_contrast',
-    ja: '光と闇の極端対比 (超高音アニメ声 ✕ 歪み低音デスボイス・グロウル)',
-    en: 'extreme dual vocals featuring ultra high-pitched cute anime-style female vocals colliding with heavily distorted demonic low-growl male vocals',
-    desc: '天使のような高音ロリ声と地獄の底から響く悪魔のグロウルが激しく交錯する究極のカタルシス。'
+    ja: '超あざと可愛い萌え声 ✕ 歪み悪魔デスボイス (ドパガキ卒倒デュアル)',
+    en: 'extreme dual vocals featuring ultra high-pitched cute anime-style female vocals colliding violently with heavily distorted demonic low-growl male vocals',
+    desc: '天使のように甘い高音ロリ萌え声と、地獄の底から這い出る悪魔グロウルの極限落差！脳内麻薬がドバドバ出る究極のカタルシス。'
   },
   {
     id: 'chant_mantra',
-    ja: '呪術的お経・念仏リフレイン (声明マントラ反復連呼)',
-    en: 'hypnotic chant-like repetition of rhythmic Buddhist shomyo mantras, repeating relentlessly in an intoxicating trance',
-    desc: '「南無阿弥陀」や梵字真言をマシンのように連呼し、聴く者を電脳トランスへと引きずり込む。'
+    ja: '中毒アニメ声のお経・念仏リフレイン (脳汁マントラ連呼)',
+    en: 'hypnotic chant-like repetition of rhythmic Buddhist shomyo mantras sung by unhinged anime girl vocals, repeating relentlessly in an intoxicating trance',
+    desc: '「南無阿弥陀仏」「きゅるるん」をマシンのように連呼！可愛すぎて狂気を感じる電脳トランス。'
   },
   {
     id: 'glitch_vocaloid',
-    ja: '電脳ボカロ・グリッチチョップ (極端なピッチベンド＆フォルマント加工)',
-    en: 'hyper-processed Vocaloid-style glitch chops with extreme autotune pitch-bends, stutter stutter effects, and radical formant shifts',
-    desc: '原形を留めないほど細切れにチョップされ、上下に激しく跳ね回る電脳ボイス。'
+    ja: '電脳ロリボカロ・グリッチチョップ (ケロケロ脳バグ加工)',
+    en: 'hyper-processed cute anime Vocaloid glitch chops with extreme autotune pitch-bends, stutter effects, and radical formant shifts',
+    desc: '極限まで高音ピッチシフトされたあざとい萌え声が、細切れにチョップされて上下に跳ね回る。'
   },
   {
     id: 'whisper_shout',
-    ja: 'サイコパス囁き ➔ 突発絶叫シャウト (ASMRから鼓膜破壊)',
-    en: 'creepy intimate binaural whisper vocals that suddenly explode into a manic, unhinged ear-splitting screaming shout',
-    desc: '耳元で冷たく囁いていたかと思うと、次の瞬間に鼓膜を破る狂気のシャウトが炸裂。'
+    ja: '耳元あまあまASMR囁き ➔ 突発ヒステリック絶叫 (情緒不安定萌え)',
+    en: 'ultra-sweet intimate binaural anime whisper vocals that suddenly explode into an unhinged ear-splitting screaming shout',
+    desc: '耳元で「だいすき...ずっと一緒だよ」と囁いた0.1秒後に、鼓膜を破る狂乱のシャウトが炸裂！'
   },
   {
     id: 'manic_rap',
-    ja: '超早口・電脳トラップラップ (Digicore高速フロウ)',
-    en: 'blistering fast anime cyber-trap rapping delivered with breathless speed and frantic high-energy rhythm',
-    desc: '息継ぎなしの超高速ライミングとオートチューンが駆け抜けるインターネット世代のラップ。'
+    ja: '超早口萌え電脳トラップラップ (ドパガキ息切れフロウ)',
+    en: 'blistering fast cute anime girl cyber-trap rapping delivered with breathless speed and frantic high-energy rhythm',
+    desc: '息継ぎなしの超高速ライミングとオートチューンが駆け抜ける、脳の処理速度を超える萌えラップ。'
   }
 ];
 
@@ -213,22 +214,22 @@ export const DURATIONS = [
   { id: 'loop', label: 'ループ (永久ドーパミン狂気リピート)', sec: null }
 ];
 
-// ランダム曲名ガチャ（脳がバグる電脳寺院タイトルたち）
+// ランダム曲名ガチャ（ドパガキの脳がバグる萌え×寺院タイトルたち）
 export const TITLE_SUGGESTIONS = [
-  '南無阿弥陀808 (Namu Amida 808)',
-  '電脳曼荼羅Breakcore (Cyber Mandala Breakcore)',
-  '超極楽浄土ドロップ (Super Nirvana Drop)',
-  '狂乱木魚とレーザーシンセ (Mokugyo Laser Frenzy)',
-  '萌え声と悪魔グロウルの輪廻転生 (Samsara Dual Vocals)',
-  '梵鐘175BPM (Bonsho 175)',
-  '地獄変デジコア (Jigokuhen Digicore)',
-  '彼岸花グリッチ・シャウト (Higanbana Glitch Scream)',
-  '電子声明・即身仏トランス (Cyber Shomyo Trance)',
-  '阿修羅ブレイクビーツ (Ashura Breakbeats)',
-  '千手観音ピッチライザー (1000-Armed Pitch Riser)',
-  '無間地獄ガバキック (Avici Gabber Kick)',
-  '電脳百鬼夜行 (Cyber Hyakki Yagyo)',
-  '涅槃寂静サイコパス (Nirvana Psychopath)',
-  'お経リピート症候群 (Sutra Repeat Syndrome)',
-  '九尾狐レーザーハイパーポップ (Kitsune Laser Hyperpop)'
+  'ドパガキ極楽浄土808 (Dopagaki Nirvana 808)',
+  'あざと可愛い南無阿弥陀 (Kawaii Namu Amida)',
+  '萌え声お経で脳がバグる (Moe Sutra Brain Melt)',
+  '千手観音きゅるるんドロップ (1000-Armed Kyururun Drop)',
+  '電脳地雷少女のブレイクコア (Cyber Jirai Girl Breakcore)',
+  '鼓膜破壊カワイイテラー (Eardrum Shatter Kawaii Terror)',
+  '木魚ポクポク萌えきゅん曼荼羅 (Mokugyo Moe Mandala)',
+  '0.5秒の無音で脳汁ドバドバ (0.5s Silence Dopamine Burst)',
+  '阿修羅ロリポップ175 (Ashura Lollipop 175)',
+  '即身仏萌え萌えトランス (Mummy Moe Shomyo Trance)',
+  '悪魔グロウルとアニメ声の心中 (Demon Growl & Anime Girl Shinju)',
+  '無間地獄ガバキック電波 (Avici Gabber Kick Radio)',
+  'お経リピート萌え中毒 (Sutra Repeat Moe Addiction)',
+  '九尾狐レーザーハイパーポップ (Kitsune Laser Hyperpop)',
+  '脳破壊ハイテンション声明 (Brain Damage High-Tension Shomyo)',
+  '極悪808スライドと萌え叫び (Nasty 808 Glide & Moe Shriek)'
 ];
