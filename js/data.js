@@ -47,6 +47,27 @@ export const GENRES = [
     en: 'manic Japanese Kawaii Hyperpop trap with lightning-fast anime girl vocal rapping, pitch-shifted formant glitches, heavy 808 glides, and frantic temple bell sprinkles',
     tag: 'Hyper Anime Trap, Glitchcore, Dopamine',
     desc: 'BPM 160〜172。早口あざと可愛いアニメ声ラップと琴の高速アルペジオ、跳ねる808スライドが脳を焼き尽くすTikTok/Shorts直系サウンド。'
+  },
+  {
+    id: 'nirvana_color_bass',
+    ja: '極楽浄土Color Bass＆Kawaiiリディム (Nirvana Color Bass & Kawaii Riddim)',
+    en: 'euphoric Japanese Color Bass and Melodic Riddim driven by vocoded pitch-bent heavy bass, high-pitched vocaloid chords, kawaii anime squeaks, and shimmering Kagura Suzu temple bells',
+    tag: 'Color Bass, Melodic Riddim, Kawaii Bass, Future Riddim',
+    desc: 'BPM 150〜160。音程変化する極彩色ベース（Color Bass）と超高音ボカロの多幸感コード！神楽鈴と重低音リディムが織りなすエモ散らかし極楽浄土。'
+  },
+  {
+    id: 'mokugyo_drumstep_mayhem',
+    ja: '木魚粉砕ドラムステップ (Mokugyo Drumstep Mayhem)',
+    en: 'ferocious 172 BPM Drumstep with devastating half-time heavy snare drops, frantic 16th-note mokugyo woodblock polyrhythms, skull-crushing wobble bass, and manic vocal chops',
+    tag: 'Drumstep, Half-time Drop, Mokugyo Bass, Heavy Wobble',
+    desc: 'BPM 168〜175。172BPMの超高速ビートから突如ヘヴィなハーフタイム・ドラムステップへ落下！木魚の16分乱打と巨大ワブルベースが頭蓋骨を粉砕する。'
+  },
+  {
+    id: 'asura_tearout_deathstep',
+    ja: '阿修羅Tearoutダブステップ (Asura Tearout & Deathstep)',
+    en: 'apocalyptic Asura Tearout Dubstep and Deathstep with speaker-shredding machine gun screech wobbles, demonic chant roars, massive O-Daiko slams, and brutal breakdowns',
+    tag: 'Tearout Dubstep, Deathstep, Machine Gun Bass, Asura Heavy Bass',
+    desc: 'BPM 145〜155。マシンガンのように連射される狂気スクリーチワブルと怒号のお経！大梵鐘と大太鼓の地響きが交錯する、阿修羅の如き最凶暴力サウンド。'
   }
 ];
 
@@ -74,10 +95,24 @@ export const VOCAL_STYLES = [
     hasGrowl: false
   },
   {
+    id: 'asmr_whisper_scream',
+    ja: '耳元あまあまASMR囁き ➔ 突発ヒステリック絶叫 (落差落雷)',
+    en: 'intimate binaural ASMR anime girl whispers suddenly detonating into chaotic hysterical high-pitched screams and maniacal squeaks, strictly no male growls',
+    desc: '耳元で「脳汁ドバドバ出してあげる♡」と甘く囁いた0.1秒後、鼓膜を破る狂乱のシャウトが炸裂する落差の極致。',
+    hasGrowl: false
+  },
+  {
     id: 'vocaloid_glitch_chops',
     ja: '電脳ロリボカロ・グリッチチョップ (細切れ脳バグ加工・スタッター)',
     en: 'hyper-processed cute childlike Vocaloid vocal glitch chops, extreme autotune stutter effects, micro-chops, playful pitch jumps, no male vocals',
     desc: '細切れにスライスされた子供っぽいボカロ声が、超高速で飛び跳ねる電脳スタッター加工。',
+    hasGrowl: false
+  },
+  {
+    id: 'fast_hyper_rap',
+    ja: '超早口萌え電脳トラップラップ (息継ぎゼロ・超高速ライム)',
+    en: 'ultra-fast manic cute anime girl rap flow with autotuned pitch-slides, breathless rhyming, strictly no male vocals',
+    desc: '息継ぎなしの超高速ライミングとオートチューンが駆け抜ける、脳の処理速度を超える萌えラップ。',
     hasGrowl: false
   },
   {
@@ -248,5 +283,9 @@ export const TITLE_SUGGESTIONS = [
   'お経リピート萌え中毒 (Sutra Repeat Moe Addiction)',
   '九尾狐レーザーハイパーポップ (Kitsune Laser Hyperpop)',
   '脳破壊ハイテンション声明 (Brain Damage High-Tension Shomyo)',
-  '極悪808スライドと萌え叫び (Nasty 808 Glide & Moe Shriek)'
+  '極悪808スライドと萌え叫び (Nasty 808 Glide & Moe Shriek)',
+  '極楽浄土カラーベース天国 (Nirvana Color Bass Heaven)',
+  '阿修羅マシンガンティアアウト (Asura Machine Gun Tearout)',
+  '木魚ドラムステップ地獄変 (Mokugyo Drumstep Hellfire)',
+  '耳元囁きからの脳天絶叫 (ASMR Whisper into Skull Scream)'
 ];

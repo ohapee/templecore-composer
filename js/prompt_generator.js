@@ -41,6 +41,13 @@ function buildSunoUdioPrompt(state, genre, vocal, japan, prod, isEn) {
   tags.push('Kawaii Terror');
   tags.push(`${state.tempo} BPM`);
 
+  // 選択ジャンル固有のタグを注入 (Color Bass, Drumstep, Tearout等)
+  if (genre.tag) {
+    genre.tag.split(', ').forEach(t => {
+      if (!tags.includes(t)) tags.push(t);
+    });
+  }
+
   // ボーカルタグの動的振り分け (女の子単独・ボカロ声・子供声 or デュアルグロウル)
   if (vocal.hasGrowl) {
     tags.push('dual vocals');
@@ -63,6 +70,13 @@ function buildSunoUdioPrompt(state, genre, vocal, japan, prod, isEn) {
     } else if (vocal.id === 'vocaloid_glitch_chops') {
       tags.push('hyper-chopped cute Vocaloid child vocal chops');
       tags.push('playful autotune stutters');
+    } else if (vocal.id === 'asmr_whisper_scream') {
+      tags.push('intimate binaural ASMR anime girl whispers');
+      tags.push('sudden chaotic hysterical high-pitched screams');
+      tags.push('extreme dynamics contrast');
+    } else if (vocal.id === 'fast_hyper_rap') {
+      tags.push('ultra-fast cute anime girl rap flow');
+      tags.push('breathless rapid-fire rhyming');
     } else {
       tags.push('pure 100% cute anime girl vocals');
       tags.push('moe squeaks');
@@ -98,15 +112,23 @@ function buildSunoUdioPrompt(state, genre, vocal, japan, prod, isEn) {
   tags.push('chaotic dopamine-rush mix');
 
   // ドロップ時のボーカル演出
-  const dropVocalBlock = vocal.hasGrowl
-    ? `[Aggressive Drop - Blown-out 808, Demonic Low-Growl & Laser Synth]
+  let dropVocalBlock = '';
+  if (vocal.hasGrowl) {
+    dropVocalBlock = `[Aggressive Drop - Blown-out 808, Demonic Low-Growl & Laser Synth]
 (EXPLOSIVE brostep bass detonate with speaker-tearing distorted 808 slides)
 (Demonic low-growl roaring mantras colliding with galloping mokugyo woodblocks)
-(Piercing laser synths shooting across chaotic stereo field)`
-    : `[Aggressive Drop - Blown-out 808, Kawaii Vocaloid Chops & Laser Synth]
+(Piercing laser synths shooting across chaotic stereo field)`;
+  } else if (vocal.id === 'asmr_whisper_scream') {
+    dropVocalBlock = `[Aggressive Drop - Blown-out 808, Hysterical Anime Scream & Laser Synth]
+(EXPLOSIVE hyperpop bass detonate with speaker-tearing distorted 808 slides)
+(Hysterical high-pitched cute anime screams exploding violently from the void: "脳天直撃！逝っちゃえぇぇ！！")
+(Frantically galloping mokugyo woodblocks and piercing laser synths, strictly solo cute girl screams)`;
+  } else {
+    dropVocalBlock = `[Aggressive Drop - Blown-out 808, Kawaii Vocaloid Chops & Laser Synth]
 (EXPLOSIVE hyperpop bass detonate with speaker-tearing distorted 808 slides)
 (Ultra-cute childlike Vocaloid vocal chops screaming mantras at breakneck speed: "南無阿弥陀！きゅるるん！")
 (Frantically galloping mokugyo woodblocks and piercing laser synths, strictly solo cute girl vocals)`;
+  }
 
   // 構成ブロック
   let structure = `
