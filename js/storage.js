@@ -129,8 +129,9 @@ function serializeState(s) {
 function deserializeState(obj) {
   return {
     ...obj,
+    vocalStyle: obj.vocalStyle || 'vocaloid_child',
     japanesque: new Set(obj.japanesque || ['mokugyo', 'bonsho', 'buddhist_chant', 'koto']),
     production: new Set(obj.production || ['sudden_silence', 'distorted_808', 'laser_synth', 'amen_chops', 'pitch_riser']),
-    negatives: new Set(obj.negatives || ['tame_chill', 'gentle_acoustic', 'boring_chords', 'slow_tempo'])
+    negatives: new Set(obj.negatives || ['male_growls', 'tame_chill', 'gentle_acoustic', 'boring_chords', 'slow_tempo'])
   };
 }

@@ -50,37 +50,49 @@ export const GENRES = [
   }
 ];
 
-// ボーカル構成＆加工スタイル (かわいいアニメ声＆対比特化)
+// ボーカル構成＆加工スタイル (かわいいアニメ声・ボカロ高音・ボカロ子供声特化)
 export const VOCAL_STYLES = [
   {
+    id: 'vocaloid_child',
+    ja: 'ボカロ風・子供っぽいロリボイス (幼女電脳合成・舌足らずキュート)',
+    en: 'cute childlike Vocaloid-style girl vocals, youthful synthetic squeaks, playful innocent high pitch, strictly no male growls, solo cute anime girl',
+    desc: '舌足らずで甘い、幼い子供のような電脳ボカロ声。悪魔グロウルは一切入れず、あざと可愛い純真さで脳を溶かす。',
+    hasGrowl: false
+  },
+  {
+    id: 'vocaloid_high_piercing',
+    ja: 'ボカロ風・突き抜ける電脳超高音 (ケロケロピッチベンド・ハイトーン)',
+    en: 'ultra high-pitched piercing Vocaloid female vocals, aggressive autotune pitch-bends, crystal clear electronic highs, rapid-fire robotic glides, no male vocals',
+    desc: '脳天を突き抜けるケロケロ高音ボカロボイス。高速アルペジオのように上下する電脳ハイトーン。',
+    hasGrowl: false
+  },
+  {
+    id: 'pure_anime_girl',
+    ja: '純度100%・あざと可愛い萌え声 (グロウル完全排除・電波キュート)',
+    en: 'pure 100% high-pitched cute anime girl vocals, moe squeaks, breathless hyperpop chanting, completely free of any male growls, solo kawaii female vocals',
+    desc: '男声やデスボイスを完全に排除！どこまでも甘くキュートなあざと可愛いアニメ声だけの世界。',
+    hasGrowl: false
+  },
+  {
+    id: 'vocaloid_glitch_chops',
+    ja: '電脳ロリボカロ・グリッチチョップ (細切れ脳バグ加工・スタッター)',
+    en: 'hyper-processed cute childlike Vocaloid vocal glitch chops, extreme autotune stutter effects, micro-chops, playful pitch jumps, no male vocals',
+    desc: '細切れにスライスされた子供っぽいボカロ声が、超高速で飛び跳ねる電脳スタッター加工。',
+    hasGrowl: false
+  },
+  {
+    id: 'chant_mantra_girl',
+    ja: '女の子声のお経・念仏リフレイン (中毒マントラ連呼・グロウルなし)',
+    en: 'hypnotic chant-like repetition of rhythmic Buddhist shomyo mantras sung only by ultra-cute anime girl vocals, repeating in a cute trance, strictly no male growls',
+    desc: 'あざと可愛い女の子の声だけで「南無阿弥陀仏」「きゅるるん」を連呼する合法トリップ。',
+    hasGrowl: false
+  },
+  {
     id: 'dual_contrast',
-    ja: '超あざと可愛い萌え声 ✕ 歪み悪魔デスボイス (ドパガキ卒倒デュアル)',
+    ja: '超あざと可愛い萌え声 ✕ 歪み悪魔デスボイス (光と闇の極端デュアル)',
     en: 'extreme dual vocals featuring ultra high-pitched cute anime-style female vocals colliding violently with heavily distorted demonic low-growl male vocals',
-    desc: '天使のように甘い高音ロリ萌え声と、地獄の底から這い出る悪魔グロウルの極限落差！脳内麻薬がドバドバ出る究極のカタルシス。'
-  },
-  {
-    id: 'chant_mantra',
-    ja: '中毒アニメ声のお経・念仏リフレイン (脳汁マントラ連呼)',
-    en: 'hypnotic chant-like repetition of rhythmic Buddhist shomyo mantras sung by unhinged anime girl vocals, repeating relentlessly in an intoxicating trance',
-    desc: '「南無阿弥陀仏」「きゅるるん」をマシンのように連呼！可愛すぎて狂気を感じる電脳トランス。'
-  },
-  {
-    id: 'glitch_vocaloid',
-    ja: '電脳ロリボカロ・グリッチチョップ (ケロケロ脳バグ加工)',
-    en: 'hyper-processed cute anime Vocaloid glitch chops with extreme autotune pitch-bends, stutter effects, and radical formant shifts',
-    desc: '極限まで高音ピッチシフトされたあざとい萌え声が、細切れにチョップされて上下に跳ね回る。'
-  },
-  {
-    id: 'whisper_shout',
-    ja: '耳元あまあまASMR囁き ➔ 突発ヒステリック絶叫 (情緒不安定萌え)',
-    en: 'ultra-sweet intimate binaural anime whisper vocals that suddenly explode into an unhinged ear-splitting screaming shout',
-    desc: '耳元で「だいすき...ずっと一緒だよ」と囁いた0.1秒後に、鼓膜を破る狂乱のシャウトが炸裂！'
-  },
-  {
-    id: 'manic_rap',
-    ja: '超早口萌え電脳トラップラップ (ドパガキ息切れフロウ)',
-    en: 'blistering fast cute anime girl cyber-trap rapping delivered with breathless speed and frantic high-energy rhythm',
-    desc: '息継ぎなしの超高速ライミングとオートチューンが駆け抜ける、脳の処理速度を超える萌えラップ。'
+    desc: '天使のような高音萌え声と悪魔グロウルの落差を楽しみたい時のデュアルボーカル構成。',
+    hasGrowl: true
   }
 ];
 
@@ -167,8 +179,13 @@ export const PRODUCTION_ELEMENTS = [
   }
 ];
 
-// 禁止事項・ネガティブプロンプト（完全除外したい生ぬるい要素）
+// 禁止事項・ネガティブプロンプト（完全除外したい生ぬるい要素・不要な声）
 export const NEGATIVE_OPTIONS = [
+  {
+    id: 'male_growls',
+    ja: '男声デスボイス・低音グロウル・男声シャウト (女の子・ボカロ声のみに純化)',
+    en: 'male vocals, deep low growls, demonic roaring, heavy masculine shouting, guttural death growls, aggressive male screaming'
+  },
   {
     id: 'tame_chill',
     ja: '生ぬるいチルビート・眠気を誘うイージーリスニング・脱力感',

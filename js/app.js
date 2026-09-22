@@ -38,10 +38,10 @@ import {
 const state = {
   trackTitle: 'ドパガキ極楽浄土808 (Dopagaki Nirvana 808)',
   genre: 'templecore_breakcore',
-  vocalStyle: 'dual_contrast',
+  vocalStyle: 'vocaloid_child',
   japanesque: new Set(['mokugyo', 'bonsho', 'buddhist_chant', 'koto']),
   production: new Set(['sudden_silence', 'distorted_808', 'laser_synth', 'amen_chops', 'pitch_riser']),
-  negatives: new Set(['tame_chill', 'gentle_acoustic', 'boring_chords', 'slow_tempo']),
+  negatives: new Set(['male_growls', 'tame_chill', 'gentle_acoustic', 'boring_chords', 'slow_tempo']),
   tempo: 172,
   duration: '60',
   lang: 'ja',
@@ -217,10 +217,10 @@ function applyState(obj) {
   if (!obj) return;
   state.trackTitle = obj.trackTitle || '';
   state.genre = obj.genre || 'templecore_breakcore';
-  state.vocalStyle = obj.vocalStyle || 'dual_contrast';
+  state.vocalStyle = obj.vocalStyle || 'vocaloid_child';
   state.japanesque = new Set(obj.japanesque || ['mokugyo', 'bonsho', 'buddhist_chant', 'koto']);
   state.production = new Set(obj.production || ['sudden_silence', 'distorted_808', 'laser_synth', 'amen_chops', 'pitch_riser']);
-  state.negatives = new Set(obj.negatives || ['tame_chill', 'gentle_acoustic', 'boring_chords', 'slow_tempo']);
+  state.negatives = new Set(obj.negatives || ['male_growls', 'tame_chill', 'gentle_acoustic', 'boring_chords', 'slow_tempo']);
   state.tempo = Number(obj.tempo) || 172;
   state.duration = obj.duration || '60';
   state.lang = obj.lang || 'ja';
@@ -385,7 +385,11 @@ function init() {
     state.production.add('sudden_silence');
     state.production.add('distorted_808');
 
+    const vItem = VOCAL_STYLES.find(v => v.id === state.vocalStyle);
     state.negatives = new Set(['tame_chill', 'gentle_acoustic', 'boring_chords', 'slow_tempo']);
+    if (vItem && !vItem.hasGrowl) {
+      state.negatives.add('male_growls');
+    }
     state.tempo = [168, 172, 176][Math.floor(Math.random() * 3)];
 
     applyState(state);
@@ -398,10 +402,10 @@ function init() {
   document.getElementById('resetBtn')?.addEventListener('click', () => {
     state.trackTitle = 'ドパガキ極楽浄土808 (Dopagaki Nirvana 808)';
     state.genre = 'templecore_breakcore';
-    state.vocalStyle = 'dual_contrast';
+    state.vocalStyle = 'vocaloid_child';
     state.japanesque = new Set(['mokugyo', 'bonsho', 'buddhist_chant', 'koto']);
     state.production = new Set(['sudden_silence', 'distorted_808', 'laser_synth', 'amen_chops', 'pitch_riser']);
-    state.negatives = new Set(['tame_chill', 'gentle_acoustic', 'boring_chords', 'slow_tempo']);
+    state.negatives = new Set(['male_growls', 'tame_chill', 'gentle_acoustic', 'boring_chords', 'slow_tempo']);
     state.tempo = 172;
     state.duration = '60';
 

@@ -41,11 +41,33 @@ function buildSunoUdioPrompt(state, genre, vocal, japan, prod, isEn) {
   tags.push('Kawaii Terror');
   tags.push(`${state.tempo} BPM`);
 
-  // ボーカルタグ (あざと可愛いアニメ声 × 悪魔低音グロウル)
-  tags.push('dual vocals');
-  tags.push('ultra high-pitched cute anime girl vocals');
-  tags.push('moe squeaks');
-  tags.push('distorted demonic low-growl male vocals');
+  // ボーカルタグの動的振り分け (女の子単独・ボカロ声・子供声 or デュアルグロウル)
+  if (vocal.hasGrowl) {
+    tags.push('dual vocals');
+    tags.push('ultra high-pitched cute anime girl vocals');
+    tags.push('moe squeaks');
+    tags.push('distorted demonic low-growl male vocals');
+  } else {
+    tags.push('solo female vocals');
+    tags.push('strictly no male vocals');
+    tags.push('no low growls');
+    if (vocal.id === 'vocaloid_child') {
+      tags.push('cute childlike Vocaloid girl vocals');
+      tags.push('youthful synthetic squeaks');
+      tags.push('playful innocent anime girl voice');
+      tags.push('loli vocaloid');
+    } else if (vocal.id === 'vocaloid_high_piercing') {
+      tags.push('ultra high-pitched piercing Vocaloid female vocals');
+      tags.push('extreme autotune electronic highs');
+      tags.push('hyper robotic glides');
+    } else if (vocal.id === 'vocaloid_glitch_chops') {
+      tags.push('hyper-chopped cute Vocaloid child vocal chops');
+      tags.push('playful autotune stutters');
+    } else {
+      tags.push('pure 100% cute anime girl vocals');
+      tags.push('moe squeaks');
+    }
+  }
   tags.push('hypnotic Buddhist chant repetition');
   tags.push('extreme autotune glitch chops');
 
@@ -75,7 +97,18 @@ function buildSunoUdioPrompt(state, genre, vocal, japan, prod, isEn) {
   tags.push('explosive aggressive EDM drop');
   tags.push('chaotic dopamine-rush mix');
 
-  // 構成ブロック (セリフ・リリックにもドパガキ＆萌え狂気演出)
+  // ドロップ時のボーカル演出
+  const dropVocalBlock = vocal.hasGrowl
+    ? `[Aggressive Drop - Blown-out 808, Demonic Low-Growl & Laser Synth]
+(EXPLOSIVE brostep bass detonate with speaker-tearing distorted 808 slides)
+(Demonic low-growl roaring mantras colliding with galloping mokugyo woodblocks)
+(Piercing laser synths shooting across chaotic stereo field)`
+    : `[Aggressive Drop - Blown-out 808, Kawaii Vocaloid Chops & Laser Synth]
+(EXPLOSIVE hyperpop bass detonate with speaker-tearing distorted 808 slides)
+(Ultra-cute childlike Vocaloid vocal chops screaming mantras at breakneck speed: "南無阿弥陀！きゅるるん！")
+(Frantically galloping mokugyo woodblocks and piercing laser synths, strictly solo cute girl vocals)`;
+
+  // 構成ブロック
   let structure = `
 [Intro - Whispering Temple Shadows & Bonsho Bell]
 (Low-drone Buddhist monk chant and delicate mokugyo ticks echoing in darkness)
@@ -89,13 +122,10 @@ function buildSunoUdioPrompt(state, genre, vocal, japan, prod, isEn) {
 [Pre-Drop - SUDDEN ABSOLUTE SILENCE]
 [DEAD SILENCE // 0.5s Complete Stop - No Sound // 息をのむ完全無音]
 
-[Aggressive Drop - Blown-out 808, Demonic Low-Growl & Laser Synth]
-(EXPLOSIVE brostep bass detonate with speaker-tearing distorted 808 slides)
-(Demonic low-growl roaring mantras colliding with galloping mokugyo woodblocks)
-(Piercing laser synths shooting across chaotic stereo field)
+${dropVocalBlock}
 
 [Hyperpop Melodic Hook - Ultra High-Pitched Anime Female Vocals]
-(Sweet, hyper-addictive anime girl melody singing at breakneck speed: "極楽浄土で脳破壊♡")
+(Sweet, hyper-addictive childlike anime girl melody singing at breakneck speed: "極楽浄土で脳破壊♡")
 (Glitch koto arpeggios and high-frequency Kagura Suzu bell cascades)
 
 [Speedcore Outro - Distorted Gabber Kicks & Bitcrushed Monk Fade]
@@ -112,24 +142,29 @@ ${structure.trim()}`;
 
 function buildFlowPrompt(state, genre, vocal, japan, prod, isEn) {
   const titlePart = state.trackTitle ? (isEn ? `Track Title: "${state.trackTitle}"\n` : `曲名: 「${state.trackTitle}」\n`) : '';
+  const vocalVibeEn = vocal.hasGrowl
+    ? 'featuring contrasting high-pitched anime girl and distorted low-growl male dual vocals'
+    : 'strictly solo cute female vocals featuring childlike Vocaloid-style high pitch, with absolutely zero male vocals and no low growls';
+  const vocalVibeJa = vocal.hasGrowl
+    ? '超あざと可愛い高音アニメ声と、地獄の底から響く悪魔の咆哮が交錯する究極のドパガキ仕様。'
+    : '悪魔低音グロウルは一切入れず、あざと可愛いボカロ風子供声・超高音アニメ声のみに純化した中毒仕様。';
 
   if (isEn) {
     return `${titlePart}Generate a dopamine-rush Japanese Kawaii Hyperpop and Breakcore track (Templecore) driven at ${state.tempo} BPM.
 - Core Genre: ${genre.en}.
-- Vocal Architecture: ${vocal.en}.
+- Vocal Architecture: ${vocal.en} (${vocalVibeEn}).
 - Japanesque & Temple Samplings: ${japan.map(j => j.en).join('; ')}.
 - Bass & Production Elements: ${prod.map(p => p.en).join('; ')}.
-- Dynamics & Drop: Starts with sweet anime whispered chants and ominous temple bonsho bells, surging into manic 172 BPM Amen breakcore rhythms and rising pitch-bending buildups with hyper-cute anime screams. Abruptly cut into a sudden absolute dead silence gap (0.5 seconds of pure zero audio // 息をのむ完全無音), immediately detonating into an explosive, blown-out distorted 808 EDM drop with demonic male growls, frantically clattering mokugyo woodblocks, piercing laser synth leads, and a hyper-addictive cute anime female vocal hook ("極楽浄土で脳破壊♡"). Chaotic dopamine-rush master designed for maximum addiction.`;
+- Dynamics & Drop: Starts with sweet anime whispered chants and temple bonsho bells, surging into manic 172 BPM Amen breakcore rhythms and rising pitch-bending buildups with hyper-cute anime screams. Abruptly cut into a sudden absolute dead silence gap (0.5 seconds of pure zero audio // 息をのむ完全無音), immediately detonating into an explosive, blown-out distorted 808 EDM drop with frantically clattering mokugyo woodblocks, piercing laser synth leads, and a hyper-addictive cute anime female vocal hook ("極楽浄土で脳破壊♡"). Chaotic dopamine-rush master designed for maximum addiction.`;
   }
 
   return `${titlePart}【音楽ジャンル・世界観】
 ドパガキ向け和風ブレイクコア × Kawaiiハイパーポップ／デジコア × 寺院エスニック「${genre.ja}」。
 テンポは脳が焼き尽くされる超高速${state.tempo} BPM。
 
-【ボーカル設計 (かわいいアニメ声 ✕ 悪魔低音グロウル)】
-${vocal.ja}
+【ボーカル設計 (${vocal.ja})】
 ${vocal.desc}
-あざと可愛い高音アニメ声と、地獄の底から響く悪魔の咆哮が交錯する究極のドパガキ仕様。
+${vocalVibeJa}
 
 【和モノ・寺院サンプリング音響】
 ${japan.map(j => `・${j.ja}`).join('\n')}
@@ -138,15 +173,22 @@ ${japan.map(j => `・${j.ja}`).join('\n')}
 ${prod.map(p => `・${p.ja}`).join('\n')}
 
 【展開・ダイナミクス指定】
-172BPM高速粉砕アーメンブレイクとお経の呪術的リフレイン、無限上昇ピッチライザーであざと可愛いアニメ声が絶叫しながら限界まで緊張感を煽った直後、一瞬の「完全な静寂（0.5秒の無音）」へ突入。その直後に歪みきった極悪808スライドベース、低音デスボイスグロウル、木魚の16分超高速連打、脳天を貫くレーザーシンセが炸裂する爆発的EDMドロップを展開。脳汁ドバドバ分泌の電脳カオス・ミックス。`;
+172BPM高速粉砕アーメンブレイクとお経の呪術的リフレイン、無限上昇ピッチライザーであざと可愛いアニメ声が絶叫しながら限界まで緊張感を煽った直後、一瞬の「完全な静寂（0.5秒の無音）」へ突入。その直後に歪みきった極悪808スライドベース、木魚の16分超高速連打、脳天を貫くレーザーシンセ、${vocal.hasGrowl ? '低音デスボイスグロウル' : '細切れ子供声ボカロチョップ'}が炸裂する爆発的EDMドロップを展開。脳汁ドバドバ分泌の電脳カオス・ミックス。`;
 }
 
 function buildPlainPrompt(state, genre, vocal, japan, prod, isEn) {
   const titlePart = state.trackTitle ? `"${state.trackTitle}" - ` : '';
+  const vocalSummaryEn = vocal.hasGrowl
+    ? 'distorted low-growl male and ultra high-pitched cute anime-style female dual vocals'
+    : 'ultra high-pitched childlike Vocaloid-style cute female solo vocals (strictly no male growls)';
+  const vocalSummaryJa = vocal.hasGrowl
+    ? '超あざと可愛いアニメ声と歪んだ低音デスボイスの極端デュアルボーカル'
+    : 'ボカロ風子供声・超高音アニメ声（悪魔グロウル一切なし・女の子単独）';
+
   if (isEn) {
-    return `${titlePart}Dopagaki Hyper Japanese kawaii hyperpop with distorted low-growl male and ultra high-pitched cute anime-style female dual vocals, glitch processing and chant-like repetition, manic ${state.tempo} BPM breakcore drive, sudden absolute silence into an explosive aggressive EDM drop, pitch-bending buildups, distorted 808s, heavy bass, glitch chops, mokugyo woodblock, frantic temple bells, laser synth leads, Buddhist chant samples, chaotic dopamine-rush mix.`;
+    return `${titlePart}Dopagaki Hyper Japanese kawaii hyperpop with ${vocalSummaryEn}, glitch processing and chant-like repetition, manic ${state.tempo} BPM breakcore drive, sudden absolute silence into an explosive aggressive EDM drop, pitch-bending buildups, distorted 808s, heavy bass, glitch chops, mokugyo woodblock, frantic temple bells, laser synth leads, Buddhist chant samples, chaotic dopamine-rush mix.`;
   }
-  return `${titlePart}${state.tempo} BPMのドパガキ専用・電脳和風Kawaiiハイパーポップ＆ブレイクコア。超あざと可愛いアニメ声と歪んだ低音デスボイスの極端デュアルボーカル、お経の呪術的反復、木魚の超高速連打と梵鐘、粉砕アーメンビーツ。一瞬の完全静寂直後に爆発する歪み808極悪EDMドロップとレーザーシンセが炸裂する脳汁分泌カオスサウンド。`;
+  return `${titlePart}${state.tempo} BPMのドパガキ専用・電脳和風Kawaiiハイパーポップ＆ブレイクコア。${vocalSummaryJa}、お経の呪術的反復、木魚の超高速連打と梵鐘、粉砕アーメンビーツ。一瞬の完全静寂直後に爆発する歪み808極悪EDMドロップとレーザーシンセが炸裂する脳汁分泌カオスサウンド。`;
 }
 
 export function buildNegativePrompt(state) {
